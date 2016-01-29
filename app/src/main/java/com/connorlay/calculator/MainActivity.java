@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
             eightButton, nineButton, zeroButton, dotButton, plusButton, minusButton, multiplyButton,
             divideButton, equalsButton, acButton;
 
-    TextView digitDisplay;
+    TextView digitDisplay, opDisplay;
 
     Double storedValue;
     String storedOperation;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         digitDisplay = (TextView) findViewById(R.id.activity_main_digit_display);
+        opDisplay = (TextView) findViewById(R.id.activity_main_op_display);
 
         oneButton = (Button) findViewById(R.id.activity_main_one_button);
         twoButton = (Button) findViewById(R.id.activity_main_two_button);
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         zeroButton = (Button) findViewById(R.id.activity_main_zero_button);
         dotButton = (Button) findViewById(R.id.activity_main_dot_button);
 
-        final Button[] digitButtons = {oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton,
-                sevenButton, eightButton, nineButton, zeroButton, dotButton};
+        final Button[] digitButtons = {oneButton, twoButton, threeButton, fourButton, fiveButton,
+                sixButton, sevenButton, eightButton, nineButton, zeroButton, dotButton};
 
         for (Button button : digitButtons) {
             final Button fButton = button;
@@ -51,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         resetCalculator();
                     }
                     if (clearOnNextClick) {
-                        digitDisplay.setText("");
-                        clearOnNextClick = false;
+                        clearDisplay();
                     }
                     digitDisplay.setText(digitDisplay.getText() + fButton.getText().toString());
                 }
@@ -63,12 +63,10 @@ public class MainActivity extends AppCompatActivity {
         minusButton = (Button) findViewById(R.id.activity_main_minus_button);
         multiplyButton = (Button) findViewById(R.id.activity_main_multiply_button);
         divideButton = (Button) findViewById(R.id.activity_main_divide_button);
-        equalsButton = (Button) findViewById(R.id.activity_main_equals_button);
-        acButton = (Button) findViewById(R.id.activity_main_ac_button);
 
         Button[] operationButtons = {plusButton, minusButton, multiplyButton, divideButton};
 
-        for(Button button : operationButtons) {
+        for (Button button : operationButtons) {
             final Button fButton = button;
             fButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,9 +75,13 @@ public class MainActivity extends AppCompatActivity {
                         resetCalculator();
                         return;
                     }
+                    if (digitDisplay.getText().toString().equals("")) {
+                        return;
+                    }
                     if (storedValue == null || storedOperation == null) {
                         storedValue = getDisplayValue();
                         storedOperation = fButton.getText().toString();
+                        opDisplay.setText(storedOperation);
                         clearOnNextClick = true;
                         return;
                     }
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        equalsButton = (Button) findViewById(R.id.activity_main_equals_button);
 
         equalsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        acButton = (Button) findViewById(R.id.activity_main_ac_button);
+
         acButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,17 +114,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void executeStoredOperation() {
         double result;
-        switch(storedOperation) {
-            case("+"):
+        switch (storedOperation) {
+            case ("+"):
                 result = storedValue + getDisplayValue();
                 break;
-            case("-"):
+            case ("-"):
                 result = storedValue - getDisplayValue();
                 break;
-            case("*"):
+            case ("*"):
                 result = storedValue * getDisplayValue();
                 break;
-            case("/"):
+            case ("/"):
                 result = storedValue / getDisplayValue();
                 break;
             default:
@@ -130,9 +136,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void resetCalculator() {
         resetOnNextClick = false;
+        clearOnNextClick = false;
         storedValue = null;
         storedOperation = null;
+        opDisplay.setText("");
         digitDisplay.setText("");
+    }
+
+    private void clearDisplay() {
+        digitDisplay.setText("");
+        clearOnNextClick = false;
     }
 
     private double getDisplayValue() {

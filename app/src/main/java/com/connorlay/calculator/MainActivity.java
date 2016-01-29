@@ -10,13 +10,14 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     Button oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton,
-           eightButton, nineButton, zeroButton, dotButton, plusButton, minusButton, multiplyButton,
-           divideButton, equalsButton, acButton;
+            eightButton, nineButton, zeroButton, dotButton, plusButton, minusButton, multiplyButton,
+            divideButton, equalsButton, acButton;
 
     TextView digitDisplay;
 
-    String operator;
-    Double operand;
+    Double storedValue;
+    String storedOperation;
+    boolean resetOnNextClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +38,18 @@ public class MainActivity extends AppCompatActivity {
         zeroButton = (Button) findViewById(R.id.activity_main_zero_button);
         dotButton = (Button) findViewById(R.id.activity_main_dot_button);
 
-        Button[] buttons = {oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton,
-                            sevenButton, eightButton, nineButton, zeroButton, dotButton};
+        final Button[] digitButtons = {oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton,
+                sevenButton, eightButton, nineButton, zeroButton, dotButton};
 
-        for(Button button : buttons) {
+        for (Button button : digitButtons) {
             final Button fButton = button;
-            button.setOnClickListener(new View.OnClickListener() {
+            fButton.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
+                    if (resetOnNextClick) {
+                        resetCalculator();
+                    }
                     digitDisplay.setText(digitDisplay.getText() + fButton.getText().toString());
                 }
             });
@@ -57,95 +62,76 @@ public class MainActivity extends AppCompatActivity {
         equalsButton = (Button) findViewById(R.id.activity_main_equals_button);
         acButton = (Button) findViewById(R.id.activity_main_ac_button);
 
-        plusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                executeOperation();
-                operand = Double.parseDouble(digitDisplay.getText().toString());
-                clearDisplay();
-                operator = "+";
-            }
-        });
+        Button[] operationButtons = {plusButton, minusButton, multiplyButton, divideButton};
 
-        minusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                executeOperation();
-                operand = Double.parseDouble(digitDisplay.getText().toString());
-                clearDisplay();
-                operator = "-";
-            }
-        });
-
-        multiplyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                executeOperation();
-                operand = Double.parseDouble(digitDisplay.getText().toString());
-                clearDisplay();
-                operator = "*";
-            }
-        });
-
-        divideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                executeOperation();
-                operand = Double.parseDouble(digitDisplay.getText().toString());
-                clearDisplay();
-                operator = "/";
-            }
-        });
+        for(Button button : operationButtons) {
+            final Button fButton = button;
+            fButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (resetOnNextClick) {
+                        resetCalculator();
+                        return;
+                    }
+                    if (storedValue == null || storedOperation == null) {
+                        storedValue = getDisplayValue();
+                        storedOperation = fButton.getText().toString();
+                        digitDisplay.setText("");
+                        return;
+                    }
+                    executeStoredOperation();
+                }
+            });
+        }
 
         equalsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executeOperation();
+                if (storedValue == null || storedOperation == null) {
+                    return;
+                }
+                executeStoredOperation();
             }
         });
 
         acButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearOperation();
-                clearDisplay();
+                resetCalculator();
             }
         });
     }
 
-    private void executeOperation() {
-        if (operator == null || operand == null) {
-            return;
+    private void executeStoredOperation() {
+        double result;
+        switch(storedOperation) {
+            case("+"):
+                result = storedValue + getDisplayValue();
+                break;
+            case("-"):
+                result = storedValue - getDisplayValue();
+                break;
+            case("*"):
+                result = storedValue * getDisplayValue();
+                break;
+            case("/"):
+                result = storedValue / getDisplayValue();
+                break;
+            default:
+                result = getDisplayValue();
         }
-
-        double base = Double.parseDouble(digitDisplay.getText().toString());
-        double result = base;
-
-        switch(operator) {
-            case "+":
-                result = base + operand;
-                break;
-            case "-":
-                result = base - operand;
-                break;
-            case "*":
-                result = base * operand;
-                break;
-            case "/":
-                result = base / operand;
-                break;
-        }
-
         digitDisplay.setText(String.valueOf(result));
-        clearOperation();
+        resetOnNextClick = true;
     }
 
-    private void clearOperation() {
-        operator = null;
-        operand = null;
-    }
-
-    private void clearDisplay() {
+    private void resetCalculator() {
+        resetOnNextClick = false;
+        storedValue = null;
+        storedOperation = null;
         digitDisplay.setText("");
+    }
+
+    private double getDisplayValue() {
+        return Double.parseDouble(digitDisplay.getText().toString());
     }
 }

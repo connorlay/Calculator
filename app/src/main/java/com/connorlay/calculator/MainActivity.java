@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     Double storedValue;
     String storedOperation;
-    boolean resetOnNextClick;
+    boolean resetOnNextClick, clearOnNextClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
                     if (resetOnNextClick) {
                         resetCalculator();
                     }
+                    if (clearOnNextClick) {
+                        digitDisplay.setText("");
+                        clearOnNextClick = false;
+                    }
                     digitDisplay.setText(digitDisplay.getText() + fButton.getText().toString());
                 }
             });
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     if (storedValue == null || storedOperation == null) {
                         storedValue = getDisplayValue();
                         storedOperation = fButton.getText().toString();
-                        digitDisplay.setText("");
+                        clearOnNextClick = true;
                         return;
                     }
                     executeStoredOperation();

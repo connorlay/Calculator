@@ -15,18 +15,19 @@ public class MainActivity extends AppCompatActivity {
 
     TextView digitDisplay, opDisplay;
 
-    Double storedValue;
-    String storedOperation;
-    boolean resetOnNextClick, clearOnNextClick;
+    Calculator calculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        calculator = new Calculator();
+
         digitDisplay = (TextView) findViewById(R.id.activity_main_digit_display);
         opDisplay = (TextView) findViewById(R.id.activity_main_op_display);
 
+        zeroButton = (Button) findViewById(R.id.activity_main_zero_button);
         oneButton = (Button) findViewById(R.id.activity_main_one_button);
         twoButton = (Button) findViewById(R.id.activity_main_two_button);
         threeButton = (Button) findViewById(R.id.activity_main_three_button);
@@ -36,119 +37,139 @@ public class MainActivity extends AppCompatActivity {
         sevenButton = (Button) findViewById(R.id.activity_main_seven_button);
         eightButton = (Button) findViewById(R.id.activity_main_eight_button);
         nineButton = (Button) findViewById(R.id.activity_main_nine_button);
-        zeroButton = (Button) findViewById(R.id.activity_main_zero_button);
         dotButton = (Button) findViewById(R.id.activity_main_dot_button);
-
-        final Button[] digitButtons = {oneButton, twoButton, threeButton, fourButton, fiveButton,
-                sixButton, sevenButton, eightButton, nineButton, zeroButton, dotButton};
-
-        for (Button button : digitButtons) {
-            final Button fButton = button;
-            fButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (resetOnNextClick) {
-                        resetCalculator();
-                    }
-                    if (clearOnNextClick) {
-                        clearDisplay();
-                    }
-                    digitDisplay.setText(digitDisplay.getText() + fButton.getText().toString());
-                }
-            });
-        }
 
         plusButton = (Button) findViewById(R.id.activity_main_plus_button);
         minusButton = (Button) findViewById(R.id.activity_main_minus_button);
         multiplyButton = (Button) findViewById(R.id.activity_main_multiply_button);
         divideButton = (Button) findViewById(R.id.activity_main_divide_button);
-
-        Button[] operationButtons = {plusButton, minusButton, multiplyButton, divideButton};
-
-        for (Button button : operationButtons) {
-            final Button fButton = button;
-            fButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (resetOnNextClick) {
-                        resetCalculator();
-                        return;
-                    }
-                    if (digitDisplay.getText().toString().equals("")) {
-                        return;
-                    }
-                    if (storedValue == null || storedOperation == null) {
-                        storedValue = getDisplayValue();
-                        storedOperation = fButton.getText().toString();
-                        opDisplay.setText(storedOperation);
-                        clearOnNextClick = true;
-                        return;
-                    }
-                    executeStoredOperation();
-                }
-            });
-        }
-
         equalsButton = (Button) findViewById(R.id.activity_main_equals_button);
-
-        equalsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (storedValue == null || storedOperation == null) {
-                    return;
-                }
-                executeStoredOperation();
-            }
-        });
 
         acButton = (Button) findViewById(R.id.activity_main_ac_button);
 
+        zeroButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickZeroButton();
+                drawCalculator();
+            }
+        });
+        oneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickOneButton();
+                drawCalculator();
+            }
+        });
+        twoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickTwoButton();
+                drawCalculator();
+            }
+        });
+        threeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickThreeButton();
+                drawCalculator();
+            }
+        });
+        fourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickFourButton();
+                drawCalculator();
+            }
+        });
+        fiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickFiveButton();
+                drawCalculator();
+            }
+        });
+        sixButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickSixButton();
+                drawCalculator();
+            }
+        });
+        sevenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickSevenButton();
+                drawCalculator();
+            }
+        });
+        eightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickEightButton();
+                drawCalculator();
+            }
+        });
+        nineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickNineButton();
+                drawCalculator();
+            }
+        });
+        dotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickDotButton();
+                drawCalculator();
+            }
+        });
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickAddButton();
+                drawCalculator();
+            }
+        });
+        minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickSubtractButton();
+                drawCalculator();
+            }
+        });
+        multiplyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickMultiplyButton();
+                drawCalculator();
+            }
+        });
+        divideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickDivideButton();
+                drawCalculator();
+            }
+        });
+        equalsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculator.clickEqualsButton();
+                drawCalculator();
+            }
+        });
         acButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetCalculator();
+                calculator.clickACButton();
+                drawCalculator();
             }
         });
     }
 
-    private void executeStoredOperation() {
-        double result;
-        switch (storedOperation) {
-            case ("+"):
-                result = storedValue + getDisplayValue();
-                break;
-            case ("-"):
-                result = storedValue - getDisplayValue();
-                break;
-            case ("*"):
-                result = storedValue * getDisplayValue();
-                break;
-            case ("/"):
-                result = storedValue / getDisplayValue();
-                break;
-            default:
-                result = getDisplayValue();
-        }
-        digitDisplay.setText(String.valueOf(result));
-        resetOnNextClick = true;
-    }
-
-    private void resetCalculator() {
-        resetOnNextClick = false;
-        clearOnNextClick = false;
-        storedValue = null;
-        storedOperation = null;
-        opDisplay.setText("");
-        digitDisplay.setText("");
-    }
-
-    private void clearDisplay() {
-        digitDisplay.setText("");
-        clearOnNextClick = false;
-    }
-
-    private double getDisplayValue() {
-        return Double.parseDouble(digitDisplay.getText().toString());
+    private void drawCalculator() {
+        digitDisplay.setText(calculator.getDigitDisplay());
+        opDisplay.setText(calculator.getStoredOperation());
     }
 }

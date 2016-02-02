@@ -12,7 +12,7 @@ public class Calculator {
     boolean waitingForUserInput;
 
     public Calculator() {
-        digitDisplay = "0.0";
+        digitDisplay = "";
         waitingForUserInput = true;
     }
 
@@ -95,6 +95,7 @@ public class Calculator {
             return;
         }
         executeOperation();
+        storeCurrentValue();
         waitingForUserInput = true;
     }
 

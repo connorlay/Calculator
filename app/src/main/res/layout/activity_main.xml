@@ -15,253 +15,117 @@
             android:id="@+id/activity_main_digit_display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="85sp"
-            android:background="@color/black"
-            android:textColor="@color/green"
-            android:gravity="center"
             android:layout_weight="1"
-            />
+            android:background="@color/black"
+            android:gravity="center"
+            android:textColor="@color/green"
+            android:textSize="85sp" />
 
         <TextView
             android:id="@+id/activity_main_op_display"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="24sp"
             android:background="@color/black"
             android:gravity="center"
-            android:textColor="@color/green"/>
+            android:textColor="@color/green"
+            android:textSize="24sp" />
 
-        </LinearLayout>
+    </LinearLayout>
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
         android:columnCount="4"
-        android:rowCount="5"
-        android:background="@color/black">
+        android:rowCount="5">
 
         <Button
             android:id="@+id/activity_main_one_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="1" />
 
         <Button
             android:id="@+id/activity_main_two_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="2" />
 
         <Button
             android:id="@+id/activity_main_three_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="3" />
 
         <Button
             android:id="@+id/activity_main_plus_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/black"
-            android:background="@color/orange"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/OpButtonStyle"
             android:text="+" />
 
         <Button
             android:id="@+id/activity_main_four_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="4" />
 
         <Button
             android:id="@+id/activity_main_five_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="5" />
 
         <Button
             android:id="@+id/activity_main_six_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="6" />
 
         <Button
             android:id="@+id/activity_main_minus_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/black"
-            android:background="@color/orange"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/OpButtonStyle"
             android:text="-" />
 
         <Button
             android:id="@+id/activity_main_seven_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="7" />
 
         <Button
             android:id="@+id/activity_main_eight_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="8" />
 
         <Button
             android:id="@+id/activity_main_nine_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="9" />
 
         <Button
             android:id="@+id/activity_main_multiply_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/black"
-            android:background="@color/orange"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/OpButtonStyle"
             android:text="*" />
 
         <Button
             android:id="@+id/activity_main_zero_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
+            style="@style/DigitButtonStyle"
             android:layout_columnSpan="2"
             android:layout_columnWeight="2"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
             android:text="0" />
 
         <Button
             android:id="@+id/activity_main_dot_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/green"
-            android:background="@color/gray"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/DigitButtonStyle"
             android:text="." />
 
         <Button
             android:id="@+id/activity_main_divide_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/black"
-            android:background="@color/orange"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/OpButtonStyle"
             android:text="/" />
 
         <Button
             android:id="@+id/activity_main_ac_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/black"
-            android:background="@color/orange"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="3"
+            style="@style/OpButtonStyle"
             android:layout_columnSpan="3"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            android:layout_columnWeight="3"
             android:text="AC" />
 
         <Button
             android:id="@+id/activity_main_equals_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="42sp"
-            android:textColor="@color/black"
-            android:background="@color/orange"
-            android:layout_margin="1dp"
-            android:layout_columnWeight="1"
-            android:layout_columnSpan="1"
-            android:layout_rowSpan="1"
-            android:layout_rowWeight="1"
+            style="@style/OpButtonStyle"
             android:text="=" />
     </GridLayout>
 </LinearLayout>

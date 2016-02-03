@@ -43,6 +43,80 @@ public class CalculatorTest {
     }
 
     @Test
+    public void testClickAddButton() {
+        calculator.clickOneButton();
+        calculator.clickAddButton();
+
+        assert(calculator.getDigitDisplay()).equals("1");
+        assert(calculator.getStoredOperation()).equals("+");
+
+        calculator.clickTwoButton();
+        calculator.clickEqualsButton();
+
+        assert(calculator.getDigitDisplay()).equals("3.0");
+        assert(calculator.getStoredOperation()).equals("");
+    }
+
+    @Test
+    public void testClickSubtractButton() {
+        calculator.clickOneButton();
+        calculator.clickSubtractButton();
+
+        assert(calculator.getDigitDisplay()).equals("1");
+        assert(calculator.getStoredOperation()).equals("-");
+
+        calculator.clickTwoButton();
+        calculator.clickEqualsButton();
+
+        assert(calculator.getDigitDisplay()).equals("-1.0");
+        assert(calculator.getStoredOperation()).equals("");
+    }
+
+    @Test
+    public void testClickMultiplyButton() {
+        calculator.clickTwoButton();
+        calculator.clickMultiplyButton();
+
+        assert(calculator.getDigitDisplay()).equals("2");
+        assert(calculator.getStoredOperation()).equals("*");
+
+        calculator.clickFiveButton();
+        calculator.clickEqualsButton();
+
+        assert(calculator.getDigitDisplay()).equals("10.0");
+        assert(calculator.getStoredOperation()).equals("");
+    }
+
+    @Test
+    public void testClickDivideButton() {
+        calculator.clickEightButton();
+        calculator.clickDivideButton();
+
+        assert(calculator.getDigitDisplay()).equals("8");
+        assert(calculator.getStoredOperation()).equals("/");
+
+        calculator.clickTwoButton();
+        calculator.clickEqualsButton();
+
+        assert(calculator.getDigitDisplay()).equals("4.0");
+        assert(calculator.getStoredOperation()).equals("");
+    }
+
+    @Test
+    public void testACButton() {
+        calculator.clickOneButton();
+        calculator.clickSubtractButton();
+
+        assert(calculator.getDigitDisplay()).equals("1");
+        assert(calculator.getStoredOperation()).equals("-");
+
+        calculator.clickACButton();
+
+        assert(calculator.getDigitDisplay()).equals("");
+        assert(calculator.getStoredOperation()).equals("");
+    }
+
+    @Test
     public void testSwitchingOperations() {
         calculator.clickOneButton();
         calculator.clickAddButton();
@@ -123,6 +197,17 @@ public class CalculatorTest {
         calculator.clickEqualsButton();
 
         assert(calculator.getDigitDisplay()).equals("6.0");
+        assert(calculator.getStoredOperation()).equals("");
+    }
+
+    @Test
+    public void testClickOperationOnEmptyDisplay() {
+        calculator.clickAddButton();
+        calculator.clickSubtractButton();
+        calculator.clickDivideButton();
+        calculator.clickMultiplyButton();
+
+        assert(calculator.getDigitDisplay()).equals("");
         assert(calculator.getStoredOperation()).equals("");
     }
 }
